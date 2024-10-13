@@ -19,7 +19,7 @@ public class FixedWindowCounter {
         long now = Instant.now().getEpochSecond();
         
         // Check if we've moved to a new window
-        if (now - currentWindowStart >= windowSizeInSeconds) {
+        if (now - currentWindowStart >= windowSizeInSeconds) {//Difference wrt to sliding window is , left pointer is set to right ptr, thus not sliding
             currentWindowStart = now;  // Start a new window
             requestCount = 0;          // Reset the count for the new window
         }
