@@ -16,7 +16,7 @@ public class TokenBucket {
     }
 
     public synchronized boolean allowRequest(int tokens) {
-        refill();  // First, add any new tokens based on elapsed time
+        //refill();  // First, add any new tokens based on elapsed time
 
         if (this.tokens < tokens) {
             return false;  // Not enough tokens, deny the request
@@ -26,6 +26,8 @@ public class TokenBucket {
         return true;  // Allow the request
     }
 
+    //@Scheduled(each 1 min)
+    //Another Thread Refills
     private void refill() {
         Instant now = Instant.now();
         // Calculate how many tokens to add based on the time elapsed
