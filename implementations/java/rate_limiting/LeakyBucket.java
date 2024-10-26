@@ -28,7 +28,8 @@ public class LeakyBucket {
     }
 
     //@Schduled(each 1 min)
-    //Another thread removes from Q & processes requests
+    //Another thread removes from Q & processes requests. If leakRate is 4 per min, then it's scheduled every 15 secs, and processes a request
+    //But Below is sample impl of processing from Q, whenever allowRequest() is called
     private void leak() {
         Instant now = Instant.now();
         long elapsedMillis = now.toEpochMilli() - lastLeakTimestamp.toEpochMilli();
