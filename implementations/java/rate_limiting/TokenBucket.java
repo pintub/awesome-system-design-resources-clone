@@ -15,14 +15,14 @@ public class TokenBucket {
         this.lastRefillTimestamp = Instant.now();
     }
 
-    public synchronized boolean allowRequest(int tokens) {
+    public synchronized boolean allowRequest() {
         //refill();  // First, add any new tokens based on elapsed time
 
-        if (this.tokens < tokens) {
+        if (this.tokens <= 0) {
             return false;  // Not enough tokens, deny the request
         }
 
-        this.tokens -= tokens;  // Consume the tokens
+        --this.tokens;  // Consume the tokens
         return true;  // Allow the request
     }
 
