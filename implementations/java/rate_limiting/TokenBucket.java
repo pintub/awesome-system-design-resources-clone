@@ -26,8 +26,9 @@ public class TokenBucket {
         return true;  // Allow the request
     }
 
-    //@Scheduled(each 1 min)
-    //Another Thread Refills
+    @Scheduled(fixedRate = 60000)//millisecs
+    //Another Thread Refills/Resets Bucket, fillRate tokens per second or min.
+    //But below logic is to refill whenever any request comes, thus decide "tokensToAdd" based on last refill TimeStamp
     private void refill() {
         Instant now = Instant.now();
         // Calculate how many tokens to add based on the time elapsed
