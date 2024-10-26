@@ -17,14 +17,14 @@ public class LeakyBucket {
         this.lastLeakTimestamp = Instant.now();
     }
 
-    public synchronized void allowRequest() {
+    public synchronized boolean allowRequest() {
         //leak();  // First, leak out any requests based on elapsed time
 
         if (bucket.size() < capacity) {
             bucket.offer(Instant.now());  // Add the new request to the bucket
-            //return true;  // Allow the request
+            return true;  // Allow the request
         }
-        //return false;  // Bucket is full, deny the request
+        return false;  // Bucket is full, deny the request
     }
 
     //@Schduled(each 1 min)
