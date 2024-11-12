@@ -17,16 +17,18 @@ public class LeakyBucket {
         this.lastLeakTimestamp = Instant.now();
     }
 
-    public synchronized boolean allowRequest() {
+    public synchronized boolean allowRequest(Request request) {
         //leak();  // First, leak out any requests based on elapsed time
 
         if (bucket.size() < capacity) {
-            bucket.offer(Instant.now());  // Add the new request to the bucket
+            bucket.offer(request);  // Add the new request to the bucket
             return true;  // Allow the request
         }
         return false;  // Bucket is full, deny the request
     }
 
+    //@EnableScheduleing at Spring boot application class
+    //@Scheduled(fixedRate = 5000)
     //@Schduled(each 1 min)
     //Another thread removes from Q & processes requests. If leakRate is 4 per min, then it's scheduled every 15 secs, and processes a request
     //But Below is sample impl of processing from Q, whenever allowRequest() is called
